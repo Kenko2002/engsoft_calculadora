@@ -17,4 +17,8 @@ export class Calculator {
       }
       return a / b;
     }
+
+    static power(base: number, exponent: number): number {
+        return Math.pow(base, exponent);
+    }
   }
