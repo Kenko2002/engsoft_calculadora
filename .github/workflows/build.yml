@@ -49,7 +49,7 @@ jobs:
         if: success()  # Executa apenas se os testes passarem
         run: |
           # Aumenta a versão do package.json
-          npm version patch -m "Release version %s"  # Use `patch`, `minor` ou `major` conforme necessário
+           npm version patch --no-git-tag-version  # Use `patch`, `minor` ou `major` conforme necessário
           
           # Faça login no NPM
           echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > ~/.npmrc
