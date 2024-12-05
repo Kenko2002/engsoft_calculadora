@@ -32,3 +32,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # Condicional para publicar a nova versão do pacote no npm
+      - name: Publish package to npm
+        if: success()  # Executa apenas se os testes passarem
+        run: |
+          # Aumenta a versão do package.json
+          npm version patch -m "Release version %s"  # Use `patch`, `minor` ou `major` conforme necessário
+          
+          # Faça login no NPM
+          echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > ~/.npmrc
+          
+          # Publicar no npm
+          npm publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Usando token secreto do NPM
