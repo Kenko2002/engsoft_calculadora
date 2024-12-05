@@ -33,6 +33,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      - name: Configure Git user
+        run: |
+          git config --global user.email "kenkomarinho@gmail.com"
+          git config --global user.name "Kenko2002"
       # Condicional para publicar a nova versão do pacote no npm
       - name: Publish package to npm
         if: success()  # Executa apenas se os testes passarem
