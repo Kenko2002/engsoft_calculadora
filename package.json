@@ -1,8 +1,17 @@
 {
+  "name": "calculadorarenzo",   
+  "version": "0.0.1", 
+  "main": "calculator.ts",  
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "test": "jest"  
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"  
   }
 }
