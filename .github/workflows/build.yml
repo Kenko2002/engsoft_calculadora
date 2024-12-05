@@ -44,17 +44,23 @@ jobs:
           git add .  # Adiciona todas as mudanças
           git commit -m "Commit uncommitted changes before version bump" || echo "No changes to commit"  # Comita as mudanças, se houver
 
+      # Incrementar a versão automaticamente (patch)
+      - name: Increment version automatically
+        run: |
+          npm version patch --no-git-tag-version  # Incrementa a versão (pode ser 'minor' ou 'major' se necessário)
+          echo "Version updated to $(node -p -e "require('./package.json').version")"
+          
       # Condicional para publicar a nova versão do pacote no npm
       - name: Publish package to npm
-        if: success()  # Executa apenas se os testes passarem
+        if: success()  # Only run if the tests pass
         run: |
-          # Aumenta a versão do package.json
-           npm version patch --no-git-tag-version  # Use `patch`, `minor` ou `major` conforme necessário
+          # Bump the version number (patch version)
+          npm version patch --no-git-tag-version
           
-          # Faça login no NPM
+          # Log in to npm
           echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > ~/.npmrc
           
-          # Publicar no npm
+          # Publish to npm
           npm publish
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
