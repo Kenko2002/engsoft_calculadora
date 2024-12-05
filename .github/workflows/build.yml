@@ -37,6 +37,13 @@ jobs:
         run: |
           git config --global user.email "kenkomarinho@gmail.com"
           git config --global user.name "Kenko2002"
+      
+      #garantindo limpeza de repositorio
+      - name: Check for uncommitted changes and commit them
+        run: |
+          git add .  # Adiciona todas as mudanças
+          git commit -m "Commit uncommitted changes before version bump" || echo "No changes to commit"  # Comita as mudanças, se houver
+
       # Condicional para publicar a nova versão do pacote no npm
       - name: Publish package to npm
         if: success()  # Executa apenas se os testes passarem
